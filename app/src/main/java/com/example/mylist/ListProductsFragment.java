@@ -6,32 +6,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.mylist.databinding.FragmentSecondBinding;
+import com.example.mylist.databinding.FragmentListProductsBinding;
 
-public class SecondFragment extends Fragment {
 
-    private FragmentSecondBinding binding;
+public class ListProductsFragment extends Fragment {
+
+    private FragmentListProductsBinding binding;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentListProductsBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(v ->
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment)
+        binding.fabAddProduct.setOnClickListener(v ->
+                NavHostFragment.findNavController(ListProductsFragment.this)
+                        .navigate(R.id.action_ListProductsFragment_to_AddProductFragment)
         );
     }
 
@@ -40,5 +41,4 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

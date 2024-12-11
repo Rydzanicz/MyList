@@ -94,7 +94,7 @@
                 android:layout_marginBottom="16dp"
                 android:numStars="5"
                 android:rating="0"
-                android:stepSize="0.5" />
+                android:stepSize="0.5"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,20 +104,31 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/image_product"
+                android:id="@+id/imageProduct"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
                 android:scaleType="centerCrop" />
 
+
             <Button
-                android:id="@+id/button_add_photo"
-                android:layout_width="wrap_content"
+                android:id="@+id/buttonAddPhotoCamera"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="@string/addPhotoCamera"
+                android:textColor="@color/darkGray"
+                app:backgroundTint="@color/peachyPink" />
+
+            <Button
+                android:id="@+id/buttonAddPhotoGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/add_photo" />
+                android:text="@string/addPhotoGallery"
+                android:textColor="@color/darkGray"
+                app:backgroundTint="@color/peachyPink" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,7 +164,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textColor="@color/darkGray"
+            app:backgroundTint="@color/peachyPink" />
 
         <View
             android:layout_width="16dp"
@@ -164,7 +177,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:textColor="@color/darkGray"
+            app:backgroundTint="@color/peachyPink" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

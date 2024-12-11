@@ -18,6 +18,8 @@
     <string name="shop">Shop</string>
     <string name="enter_shop_name">Enter shop name</string>
     <string name="notes">Notes</string>
+    <string name="addPhotoCamera">Add Photo from Camera</string>
+    <string name="addPhotoGallery">Add Photo from Gallery</string>
     <string name="enter_notes">Enter additional notes</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>

@@ -3,16 +3,15 @@ package com.example.mylist.product;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.mylist.R;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     private final List<Product> productList;
 
@@ -31,12 +30,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+
         holder.textName.setText(product.getName());
+        holder.textCompany.setText("Company: " + product.getCompany());
         holder.textPrice.setText(String.format("Price: $%.2f", product.getPrice()));
         holder.textShop.setText("Shop: " + product.getShop());
-        holder.textRating.setText("Rating: " + product.getRating());
+        holder.textCategory.setText("Category: " + product.getCategory());
+        holder.textNotes.setText("Notes: " + product.getNotes());
+        holder.ratingBar.setRating(product.getRating());
 
-        // Ustawienie zdjęcia za pomocą Glide
         if (product.getPhotoPath() != null) {
             Glide.with(holder.itemView.getContext())
                     .load(product.getPhotoPath())
@@ -52,17 +54,4 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageProduct;
-        TextView textName, textPrice, textShop, textRating;
-
-        public ProductViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageProduct = itemView.findViewById(R.id.imageProduct);
-            textName = itemView.findViewById(R.id.textName);
-            textPrice = itemView.findViewById(R.id.textPrice);
-            textShop = itemView.findViewById(R.id.textShop);
-            textRating = itemView.findViewById(R.id.textRating);
-        }
-    }
 }

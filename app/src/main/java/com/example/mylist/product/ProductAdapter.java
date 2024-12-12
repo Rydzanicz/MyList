@@ -1,9 +1,11 @@
 package com.example.mylist.product;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_product, parent, false);
+
         return new ProductViewHolder(view);
     }
 
@@ -47,6 +50,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         } else {
             holder.imageProduct.setImageResource(R.drawable.ic_placeholder);
         }
+        holder.itemView.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putInt("productId", product.getId());
+            Navigation.findNavController(v).navigate(R.id.action_ListProductsFragment_to_EditProductFragment, args);
+        });
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.mylist.product;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,4 +17,10 @@ public interface ProductDao {
 
     @Query("DELETE FROM products WHERE id = :productId")
     void deleteProductById(int productId);
+
+    @Query("SELECT * FROM products WHERE id = :productId LIMIT 1")
+    Product getProductById(int productId);
+
+    @Update
+    void updateProduct(Product product);
 }

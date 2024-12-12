@@ -1,190 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddProductFragment">
+    android:padding="16dp">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/buttons_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!-- Zdjęcie produktu -->
+        <ImageView
+            android:id="@+id/imageProduct"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_placeholder"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Przycisk dodania zdjęcia z aparatu -->
+        <Button
+            android:id="@+id/buttonAddPhotoCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add Photo (Camera)"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageProduct"
+            app:layout_constraintEnd_toStartOf="@id/buttonAddPhotoGallery"
+            app:backgroundTint="@color/peachyPink" />
+
+        <!-- Przycisk dodania zdjęcia z galerii -->
+        <Button
+            android:id="@+id/buttonAddPhotoGallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add Photo (Gallery)"
+            app:layout_constraintTop_toBottomOf="@id/imageProduct"
+            app:layout_constraintStart_toEndOf="@id/buttonAddPhotoCamera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:backgroundTint="@color/peachyPink" />
+
+        <!-- Etykieta nazwy -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonAddPhotoCamera"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania nazwy -->
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter product name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewName"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta firmy -->
+        <TextView
+            android:id="@+id/textViewCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Company:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_name"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania firmy -->
+        <EditText
+            android:id="@+id/edit_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter company name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCompany"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta sklepu -->
+        <TextView
+            android:id="@+id/textViewShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shop:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_company"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania sklepu -->
+        <EditText
+            android:id="@+id/edit_shop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter shop name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewShop"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta ceny -->
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_shop"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania ceny -->
+        <EditText
+            android:id="@+id/edit_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter product price"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPrice"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta kategorii -->
+        <TextView
+            android:id="@+id/textViewCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_price"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania kategorii -->
+        <EditText
+            android:id="@+id/edit_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter product category"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCategory"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta notatek -->
+        <TextView
+            android:id="@+id/textViewNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_category"
+            android:layout_marginTop="16dp" />
+
+        <!-- Pole wprowadzania notatek -->
+        <EditText
+            android:id="@+id/edit_notes"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:hint="Enter detailed notes"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewNotes"
+            android:layout_marginTop="8dp" />
+
+        <!-- Etykieta oceny -->
+        <TextView
+            android:id="@+id/textViewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_notes"
+            android:layout_marginTop="16dp" />
+
+        <!-- Ocena gwiazdkami -->
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewRating"
+            android:layout_marginTop="8dp" />
+
+        <!-- Dolne przyciski -->
         <LinearLayout
+            android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/company"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/edit_company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/enter_company_name"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/name"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/edit_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/enter_product_name"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/shop"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/edit_shop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/enter_shop_name"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/price"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/edit_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/enter_price"
-                android:inputType="numberDecimal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/rating"
-                android:textSize="16sp" />
-
-            <RatingBar
-                android:id="@+id/rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="0.5"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/photo"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/imageProduct"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
-                android:scaleType="centerCrop" />
-
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <Button
-                android:id="@+id/buttonAddPhotoCamera"
-                android:layout_width="match_parent"
+                android:id="@+id/buttonCancel"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/addPhotoCamera"
-                android:textColor="@color/darkGray"
+                android:layout_weight="1"
+                android:text="Cancel"
                 app:backgroundTint="@color/peachyPink" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
 
             <Button
-                android:id="@+id/buttonAddPhotoGallery"
-                android:layout_width="match_parent"
+                android:id="@+id/buttonSave"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/addPhotoGallery"
-                android:textColor="@color/darkGray"
+                android:layout_weight="1"
+                android:text="Save"
                 app:backgroundTint="@color/peachyPink" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/notes"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/edit_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/enter_notes"
-                android:inputType="textMultiLine" />
-            <EditText
-                android:id="@+id/editCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter category"
-                android:layout_marginTop="8dp" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/buttons_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel"
-            android:textColor="@color/darkGray"
-            app:backgroundTint="@color/peachyPink" />
-
-        <View
-            android:layout_width="16dp"
-            android:layout_height="0dp" />
-
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save"
-            android:textColor="@color/darkGray"
-            app:backgroundTint="@color/peachyPink" />
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

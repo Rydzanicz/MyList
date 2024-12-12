@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProductFragment">
+    tools:context=".fragments.AddProductFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -144,7 +144,12 @@
                 android:layout_marginBottom="16dp"
                 android:hint="@string/enter_notes"
                 android:inputType="textMultiLine" />
-
+            <EditText
+                android:id="@+id/editCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter category"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

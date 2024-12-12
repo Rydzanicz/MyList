@@ -1,7 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
-
 android {
     namespace = "com.example.mylist"
     compileSdk = 34
@@ -25,12 +26,24 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures {
-        viewBinding = true
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    viewBinding {
+        enable = true
+    }
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 }
 
@@ -44,4 +57,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    androidTestImplementation(libs.androidx.room.compiler)
+
+    implementation(libs.androidx.room.runtime.v252)
+    androidTestImplementation(libs.androidx.room.compiler.v252)
+
+    implementation(libs.androidx.room.ktx.v252)
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt(libs.androidx.room.compiler)
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
+
 }

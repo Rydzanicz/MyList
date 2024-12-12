@@ -1,4 +1,4 @@
-package com.example.mylist;
+package com.example.mylist.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,10 +21,16 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.mylist.product.AppDatabase;
+import com.example.mylist.product.Product;
+import com.example.mylist.R;
 import com.example.mylist.databinding.FragmentAddProductBinding;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +43,7 @@ public class AddProductFragment extends Fragment {
     private ActivityResultLauncher<Intent> pickFromGalleryLauncher;
     private Uri photoUri;
     private static final List<Product> productList = new ArrayList<>();
+    private AppDatabase database;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,13 +83,15 @@ public class AddProductFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Inicjalizacja bazy danych
+        database = AppDatabase.getInstance(requireContext());
+
+        // Przypisanie akcji do przycisków
         binding.buttonAddPhotoCamera.setOnClickListener(v -> openCamera());
-
         binding.buttonAddPhotoGallery.setOnClickListener(v -> openGallery());
-
         binding.buttonCancel.setOnClickListener(v -> requireActivity().onBackPressed());
         binding.buttonSave.setOnClickListener(v -> {
             if (validateInputs()) {
@@ -90,7 +99,8 @@ public class AddProductFragment extends Fragment {
                 NavHostFragment.findNavController(AddProductFragment.this)
                         .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
             }
-        });    }
+        });
+    }
 
     @SuppressLint("QueryPermissionsNeeded")
     private void openCamera() {
@@ -110,7 +120,7 @@ public class AddProductFragment extends Fragment {
     }
 
     private void openGallery() {
-        Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        final Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickFromGalleryLauncher.launch(pickPhotoIntent);
     }
 
@@ -134,14 +144,52 @@ public class AddProductFragment extends Fragment {
         final double price = Double.parseDouble(binding.editPrice.getText().toString());
         final float rating = binding.ratingBar.getRating();
         final String notes = binding.editNotes.getText().toString();
+        final String category = binding.editCategory.getText().toString();
 
-        final String photo = "placeholder";
+        String photoPath = null;
+        if (photoUri != null) {
+            try {
+                photoPath = saveImageToAppFolder(photoUri);
+            } catch (IOException e) {
+                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
 
-        final Product product = new Product(company, name, shop, price, rating, notes, photo);
-        productList.add(product);
+        final Product product = new Product(company, name, shop, price, rating, notes, photoPath, category);
 
-        Toast.makeText(getContext(), "Product saved!", Toast.LENGTH_SHORT).show();
+        new Thread(() -> {
+            database.productDao().insertProduct(product);
+            requireActivity().runOnUiThread(() -> {
+                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT).show();
+            });
+        }).start();
     }
+
+    private String saveImageToAppFolder(Uri imageUri) throws IOException {
+        final InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+
+        final File appFolder = new File(requireContext().getFilesDir(), "images");
+        if (!appFolder.exists()) {
+            appFolder.mkdirs();
+        }
+
+        final String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+        final File photoFile = new File(appFolder, fileName);
+
+        final OutputStream outputStream = new FileOutputStream(photoFile);
+        final byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+
+        outputStream.close();
+        inputStream.close();
+
+        return photoFile.getAbsolutePath();
+    }
+
 
     private boolean validateInputs() {
         if (photoUri == null) {
@@ -163,6 +211,10 @@ public class AddProductFragment extends Fragment {
         }
         if (TextUtils.isEmpty(binding.editShop.getText())) {
             Toast.makeText(getContext(), "Shop cannot be null or empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (TextUtils.isEmpty(binding.editCategory.getText())) {
+            Toast.makeText(getContext(), "Category cannot be null or empty", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -21,31 +21,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonChangePhoto"
-            android:layout_width="wrap_content"
+            android:id="@+id/buttonTakePhoto"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Change Photo"
-            app:backgroundTint="@color/peachyPink"
+            android:layout_marginEnd="8dp"
+            android:text="@string/addPhotoCamera"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageProduct" />
+            app:layout_constraintTop_toBottomOf="@id/imageProduct"
+            app:layout_constraintEnd_toStartOf="@id/buttonChangePhoto"
+            app:backgroundTint="@color/peachyPink" />
 
         <Button
-            android:id="@+id/buttonTakePhoto"
-            android:layout_width="wrap_content"
+            android:id="@+id/buttonChangePhoto"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Take Photo"
-            app:backgroundTint="@color/peachyPink"
+            android:layout_marginStart="8dp"
+            android:text="@string/addPhotoGallery"
+            app:layout_constraintStart_toEndOf="@id/buttonTakePhoto"
+            app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageProduct" />
+            app:backgroundTint="@color/peachyPink" />
+
 
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Name:"
+            android:text="@string/name"
             app:backgroundTint="@color/peachyPink"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonChangePhoto" />
@@ -54,7 +57,7 @@
             android:id="@+id/editTextName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter product name"
+            android:hint="@string/enter_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewName" />
@@ -64,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Company:"
+            android:text="@string/company"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextName" />
 
@@ -72,7 +75,7 @@
             android:id="@+id/editTextCompany"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter company name"
+            android:hint="@string/enter_company"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCompany" />
@@ -82,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Shop:"
+            android:text="@string/shop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextCompany" />
 
@@ -90,7 +93,7 @@
             android:id="@+id/editTextShop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter shop name"
+            android:hint="@string/enter_shop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewShop" />
@@ -100,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Price:"
+            android:text="@string/price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextShop" />
 
@@ -108,7 +111,7 @@
             android:id="@+id/editTextPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter product price"
+            android:hint="@string/enter_price"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Category:"
+            android:text="@string/category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextPrice" />
 
@@ -127,7 +130,7 @@
             android:id="@+id/editTextCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter category"
+            android:hint="@string/enter_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
@@ -137,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Notes:"
+            android:text="@string/notes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextCategory" />
 
@@ -147,7 +150,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
             android:gravity="top"
-            android:hint="Enter detailed notes"
+            android:hint="@string/enter_notes"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Rating:"
+            android:text="@string/rating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextNotes" />
 
@@ -178,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Save Changes"
+            android:text="@string/save"
             app:backgroundTint="@color/peachyPink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

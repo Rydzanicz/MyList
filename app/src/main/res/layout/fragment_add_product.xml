@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Zdjęcie produktu -->
         <ImageView
             android:id="@+id/imageProduct"
             android:layout_width="150dp"
@@ -22,151 +21,137 @@
             android:src="@drawable/ic_placeholder"
             android:layout_marginBottom="16dp" />
 
-        <!-- Przycisk dodania zdjęcia z aparatu -->
         <Button
             android:id="@+id/buttonAddPhotoCamera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add Photo (Camera)"
+            android:text="@string/addPhotoCamera"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintEnd_toStartOf="@id/buttonAddPhotoGallery"
             app:backgroundTint="@color/peachyPink" />
 
-        <!-- Przycisk dodania zdjęcia z galerii -->
         <Button
             android:id="@+id/buttonAddPhotoGallery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add Photo (Gallery)"
+            android:text="@string/addPhotoGallery"
             app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintStart_toEndOf="@id/buttonAddPhotoCamera"
             app:layout_constraintEnd_toEndOf="parent"
             app:backgroundTint="@color/peachyPink" />
 
-        <!-- Etykieta nazwy -->
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name:"
+            android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonAddPhotoCamera"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania nazwy -->
         <EditText
             android:id="@+id/edit_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter product name"
+            android:hint="@string/enter_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewName"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta firmy -->
         <TextView
             android:id="@+id/textViewCompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Company:"
+            android:text="@string/company"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_name"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania firmy -->
         <EditText
             android:id="@+id/edit_company"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter company name"
+            android:hint="@string/enter_company"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCompany"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta sklepu -->
         <TextView
             android:id="@+id/textViewShop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shop:"
+            android:text="@string/shop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_company"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania sklepu -->
         <EditText
             android:id="@+id/edit_shop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter shop name"
+            android:hint="@string/enter_shop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewShop"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta ceny -->
         <TextView
             android:id="@+id/textViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price:"
+            android:text="@string/price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_shop"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania ceny -->
         <EditText
             android:id="@+id/edit_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter product price"
+            android:hint="@string/price"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewPrice"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta kategorii -->
         <TextView
             android:id="@+id/textViewCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category:"
+            android:text="@string/category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_price"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania kategorii -->
         <EditText
             android:id="@+id/edit_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter product category"
+            android:hint="@string/enter_category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCategory"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta notatek -->
         <TextView
             android:id="@+id/textViewNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notes:"
+            android:text="@string/notes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_category"
             android:layout_marginTop="16dp" />
 
-        <!-- Pole wprowadzania notatek -->
         <EditText
             android:id="@+id/edit_notes"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:hint="Enter detailed notes"
+            android:hint="@string/enter_notes"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
@@ -175,17 +160,15 @@
             app:layout_constraintTop_toBottomOf="@id/textViewNotes"
             android:layout_marginTop="8dp" />
 
-        <!-- Etykieta oceny -->
         <TextView
             android:id="@+id/textViewRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rating:"
+            android:text="@string/rating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_notes"
             android:layout_marginTop="16dp" />
 
-        <!-- Ocena gwiazdkami -->
         <RatingBar
             android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
@@ -196,7 +179,6 @@
             app:layout_constraintTop_toBottomOf="@id/textViewRating"
             android:layout_marginTop="8dp" />
 
-        <!-- Dolne przyciski -->
         <LinearLayout
             android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
@@ -212,7 +194,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 app:backgroundTint="@color/peachyPink" />
 
             <View
@@ -224,7 +206,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Save"
+                android:text="@string/save"
                 app:backgroundTint="@color/peachyPink" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

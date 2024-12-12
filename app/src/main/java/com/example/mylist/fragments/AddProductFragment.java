@@ -67,7 +67,7 @@ public class AddProductFragment extends Fragment {
                 result -> {
                     requireActivity();
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri selectedImageUri = result.getData().getData();
+                        final Uri selectedImageUri = result.getData().getData();
                         binding.imageProduct.setImageURI(selectedImageUri);
                         photoUri = selectedImageUri;
                         Toast.makeText(getContext(), "Photo selected from gallery", Toast.LENGTH_SHORT).show();
@@ -86,10 +86,8 @@ public class AddProductFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Inicjalizacja bazy danych
         database = AppDatabase.getInstance(requireContext());
 
-        // Przypisanie akcji do przycisków
         binding.buttonAddPhotoCamera.setOnClickListener(v -> openCamera());
         binding.buttonAddPhotoGallery.setOnClickListener(v -> openGallery());
         binding.buttonCancel.setOnClickListener(v -> requireActivity().onBackPressed());
@@ -106,7 +104,7 @@ public class AddProductFragment extends Fragment {
     private void openCamera() {
         final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            File photoFile = createImageFile();
+            final File photoFile = createImageFile();
             if (photoFile != null) {
                 photoUri = FileProvider.getUriForFile(
                         requireContext(),

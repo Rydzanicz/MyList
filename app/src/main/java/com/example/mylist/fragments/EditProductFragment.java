@@ -52,7 +52,7 @@ public class EditProductFragment extends Fragment {
         database = AppDatabase.getInstance(requireContext());
 
         if (getArguments() != null) {
-            int productId = getArguments().getInt("productId");
+            final int productId = getArguments().getInt("productId");
             loadProduct(productId);
         }
 
@@ -148,9 +148,9 @@ public class EditProductFragment extends Fragment {
     }
 
     private void openCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            File photoFile = createImageFile();
+            final File photoFile = createImageFile();
             if (photoFile != null) {
                 try {
                     photoUri = FileProvider.getUriForFile(requireContext(),
@@ -169,28 +169,27 @@ public class EditProductFragment extends Fragment {
 
 
     private File createImageFile() {
-        File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        final File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if (storageDir != null && !storageDir.exists()) {
             if (!storageDir.mkdirs()) {
                 Toast.makeText(requireContext(), "Failed to create directory", Toast.LENGTH_SHORT).show();
                 return null;
             }
         }
-        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+        final String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
         return new File(storageDir, fileName);
     }
 
 
-
     private String saveImageToAppFolder(Uri imageUri) throws IOException {
-        InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
-        File appFolder = new File(requireContext().getFilesDir(), "images");
+        final InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+        final File appFolder = new File(requireContext().getFilesDir(), "images");
         if (!appFolder.exists()) {
             appFolder.mkdirs();
         }
-        File photoFile = new File(appFolder, "IMG_" + System.currentTimeMillis() + ".jpg");
-        OutputStream outputStream = new FileOutputStream(photoFile);
-        byte[] buffer = new byte[1024];
+        final File photoFile = new File(appFolder, "IMG_" + System.currentTimeMillis() + ".jpg");
+        final OutputStream outputStream = new FileOutputStream(photoFile);
+        final byte[] buffer = new byte[1024];
         int length;
         while ((length = inputStream.read(buffer)) > 0) {
             outputStream.write(buffer, 0, length);

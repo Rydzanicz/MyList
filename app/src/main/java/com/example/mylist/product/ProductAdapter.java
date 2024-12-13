@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mylist.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
@@ -22,9 +23,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     public ProductAdapter(final List<Product> productList,
                           final Context context) {
-        this.productList = productList;
+        this.productList = new ArrayList<>(productList);
         this.context     = context;
-
     }
 
     @NonNull
@@ -50,7 +50,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         holder.textNotes.setText(context.getString(R.string.notes) + product.getNotes());
         holder.ratingBar.setRating(product.getRating());
 
-
         if (product.getPhotoPath() != null) {
             Glide.with(holder.itemView.getContext())
                  .load(product.getPhotoPath())
@@ -59,6 +58,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         } else {
             holder.imageProduct.setImageResource(R.drawable.ic_placeholder);
         }
+
         holder.itemView.setOnClickListener(v -> {
             final Bundle args = new Bundle();
             args.putInt("productId", product.getId());
@@ -72,4 +72,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         return productList.size();
     }
 
+    public void updateData(final List<Product> newProducts) {
+        this.productList.clear();
+        this.productList.addAll(newProducts);
+        notifyDataSetChanged();
+    }
 }

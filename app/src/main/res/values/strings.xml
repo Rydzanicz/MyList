@@ -4,8 +4,8 @@
     <string name="list_products_fragment_label">List of products</string>
     <string name="add_product_fragment_label">Add product</string>
     <string name="edit_product_fragment_label">Edit product</string>
-    <!--    Edit & Add Fragment-->
 
+    <!--    Edit & Add Fragment-->
     <string name="addPhotoCamera">Add Photo (Camera)</string>
     <string name="addPhotoGallery">Add Photo (Gallery)</string>
 
@@ -35,7 +35,6 @@
     <string name="add">Add</string>
 
     <!--    Item Fragment-->
-
     <string name="product_name">Product Name</string>
     <string name="product_company">Company: Example Company</string>
     <string name="product_price">Price: 0.00</string>
@@ -43,4 +42,14 @@
     <string name="product_category">Category: Example Category</string>
     <string name="product_notes">Notes: Example Notes</string>
     <string name="product_rating">Rating:</string>
+
+    <!--    Sort Fragment-->
+    <string name="sort">Sort</string>
+    <string name="sort_products">Sort Products</string>
+    <string name="sort_company">Sort by Company</string>
+    <string name="sort_name">Sort by Name</string>
+    <string name="sort_shop">Sort by Shop</string>
+    <string name="unknown_sorting_criterion">Unknown sorting criterion</string>
+    <string name="no_products_to_sort">No products to sort</string>
+
 </resources>

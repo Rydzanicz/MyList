@@ -134,27 +134,21 @@ public class AddProductFragment extends Fragment {
     }
 
     private void saveProduct() {
-        final String company = binding.editCompany.getText()
-                                                  .toString();
-        final String name = binding.editName.getText()
-                                            .toString();
-        final String shop = binding.editShop.getText()
-                                            .toString();
-        final double price = Double.parseDouble(binding.editPrice.getText()
-                                                                 .toString());
+        final String company = binding.editCompany.getText().toString();
+        final String name = binding.editName.getText().toString();
+        final String shop = binding.editShop.getText().toString();
+        final double price = Double.parseDouble(binding.editPrice.getText().toString());
         final float rating = binding.ratingBar.getRating();
-        final String notes = binding.editNotes.getText()
-                                              .toString();
-        final String category = binding.editCategory.getText()
-                                                    .toString();
+        final String notes = binding.editNotes.getText().toString();
+        final String category = binding.editCategory.getText().toString();
 
         String photoPath = null;
+
         if (photoUri != null) {
             try {
                 photoPath = saveImageToAppFolder(photoUri);
             } catch (IOException e) {
-                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT)
-                     .show();
+                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -162,14 +156,13 @@ public class AddProductFragment extends Fragment {
         final Product product = new Product(company, name, shop, price, rating, notes, photoPath, category);
 
         new Thread(() -> {
-            database.productDao()
-                    .insertProduct(product);
+            database.productDao().insertProduct(product);
             requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT)
-                     .show();
+                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT).show();
             });
         }).start();
     }
+
 
     private String saveImageToAppFolder(final Uri imageUri) throws IOException {
         final InputStream inputStream = requireContext().getContentResolver()
@@ -198,12 +191,6 @@ public class AddProductFragment extends Fragment {
 
 
     private boolean validateInputs() {
-        if (photoUri == null) {
-            Toast.makeText(getContext(), "No photo available", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-
         if (TextUtils.isEmpty(binding.editCompany.getText())) {
             Toast.makeText(getContext(), "Company cannot be null or empty", Toast.LENGTH_SHORT)
                  .show();

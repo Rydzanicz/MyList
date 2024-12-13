@@ -42,7 +42,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:backgroundTint="@color/peachyPink" />
 
-
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
@@ -176,17 +175,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewRating" />
 
-        <Button
-            android:id="@+id/buttonSaveChanges"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/save"
-            app:backgroundTint="@color/peachyPink"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete"
+                app:backgroundTint="@color/peachyPink" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonSaveChanges"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save"
+                app:backgroundTint="@color/peachyPink" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

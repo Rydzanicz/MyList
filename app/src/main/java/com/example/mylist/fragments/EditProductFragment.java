@@ -1,6 +1,7 @@
 package com.example.mylist.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -68,7 +69,37 @@ public class EditProductFragment extends Fragment {
 
         binding.buttonChangePhoto.setOnClickListener(v -> openGallery());
         binding.buttonTakePhoto.setOnClickListener(v -> openCamera());
+        binding.buttonDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(requireContext()).setTitle("Confirm Delete")
+                                                     .setMessage("Are you sure you want to delete this product?")
+                                                     .setPositiveButton("Yes", (dialog, which) -> {
+                                                         deleteProduct();
+                                                     })
+                                                     .setNegativeButton("No", (dialog, which) -> {
+                                                         dialog.dismiss();
+                                                     })
+                                                     .show();
+        });
     }
+
+    private void deleteProduct() {
+        if (product != null) {
+            new Thread(() -> {
+                database.productDao()
+                        .deleteProduct(product);
+                requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(getContext(), "The product has been deleted!", Toast.LENGTH_SHORT)
+                         .show();
+                    NavHostFragment.findNavController(this)
+                                   .navigate(R.id.action_EditProductFragment_to_ListProductsFragment);
+                });
+            }).start();
+        } else {
+            Toast.makeText(getContext(), "The product cannot be deleted!", Toast.LENGTH_SHORT)
+                 .show();
+        }
+    }
+
 
     private void loadProduct(final int productId) {
         executor.execute(() -> {

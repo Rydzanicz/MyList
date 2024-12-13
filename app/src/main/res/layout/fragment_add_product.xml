@@ -31,7 +31,7 @@
             app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintEnd_toStartOf="@id/buttonAddPhotoGallery"
             android:textColor="@android:color/black"
-            app:backgroundTint="@color/peachyPink" />
+            style="@style/AppTheme.Button"/>
 
         <Button
             android:id="@+id/buttonAddPhotoGallery"
@@ -42,7 +42,7 @@
             app:layout_constraintStart_toEndOf="@id/buttonAddPhotoCamera"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@android:color/black"
-            app:backgroundTint="@color/peachyPink" />
+            style="@style/AppTheme.Button" />
 
         <TextView
             android:id="@+id/textViewName"
@@ -198,7 +198,7 @@
                 android:layout_weight="1"
                 android:text="@string/cancel"
                 android:textColor="@android:color/black"
-                app:backgroundTint="@color/peachyPink" />
+                style="@style/AppTheme.Button" />
 
             <View
                 android:layout_width="16dp"
@@ -211,7 +211,7 @@
                 android:layout_weight="1"
                 android:text="@string/save"
                 android:textColor="@android:color/black"
-                app:backgroundTint="@color/peachyPink" />
+                style="@style/AppTheme.Button" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

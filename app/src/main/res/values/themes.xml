@@ -2,9 +2,22 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyList" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:background">@color/lightPeach</item>
+        <item name="colorPrimary">@color/sky_blue</item>
+        <item name="android:windowBackground">@color/sky_blue</item>
+        <item name="android:colorBackground">@color/sky_blue</item>
+        <item name="android:background">@color/sky_blue</item>
+        <item name="android:statusBarColor">@color/sky_blue</item>
         <item name="cardViewStyle">@style/CustomCardViewStyle</item>
+
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/light_sky_blue</item>
+    </style>
+
+    <style name="BoxBackgroundStyle" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/light_sky_blue</item>
+        <item name="android:textColorHint">@android:color/black</item>
     </style>
 
     <style name="Theme.MyList" parent="Base.Theme.MyList" />

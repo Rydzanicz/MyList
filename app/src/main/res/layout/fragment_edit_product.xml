@@ -27,7 +27,7 @@
             android:layout_marginEnd="8dp"
             android:text="@string/addPhotoCamera"
             android:textColor="@android:color/black"
-            app:backgroundTint="@color/peachyPink"
+            style="@style/AppTheme.Button"
             app:layout_constraintEnd_toStartOf="@id/buttonChangePhoto"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageProduct" />
@@ -39,7 +39,7 @@
             android:layout_marginStart="8dp"
             android:text="@string/addPhotoGallery"
             android:textColor="@android:color/black"
-            app:backgroundTint="@color/peachyPink"
+            style="@style/AppTheme.Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/buttonTakePhoto"
             app:layout_constraintTop_toBottomOf="@id/imageProduct" />
@@ -192,7 +192,7 @@
                 android:layout_weight="1"
                 android:text="@string/delete"
                 android:textColor="@android:color/black"
-                app:backgroundTint="@color/peachyPink" />
+                style="@style/AppTheme.Button"/>
 
             <View
                 android:layout_width="16dp"
@@ -205,7 +205,7 @@
                 android:layout_weight="1"
                 android:text="@string/save"
                 android:textColor="@android:color/black"
-                app:backgroundTint="@color/peachyPink" />
+                style="@style/AppTheme.Button"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

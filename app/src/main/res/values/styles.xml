@@ -6,8 +6,9 @@
         <item name="android:scaleY">0.5</item>
     </style>
     <style name="CustomCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/lightPeach</item>
+        <item name="cardBackgroundColor">@color/sky_blue</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">8dp</item>
     </style>
+    
 </resources>

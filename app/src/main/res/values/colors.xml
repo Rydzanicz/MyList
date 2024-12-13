@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="peachyPink">#FEC0AC</color>
-    <color name="lightPeach">#FFD8C2</color>
     <color name="darkGray">#333333</color>
+    <color name="sky_blue">#ACC8FD</color>
+    <color name="light_sky_blue">#A0BAEB</color>
 </resources>

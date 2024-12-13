@@ -45,6 +45,7 @@
 
     <!--    Sort Fragment-->
     <string name="sort">Sort</string>
+    <string name="search">Search</string>
     <string name="sort_products">Sort Products</string>
     <string name="sort_company">Sort by Company</string>
     <string name="sort_name">Sort by Name</string>

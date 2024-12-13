@@ -21,10 +21,10 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.mylist.product.AppDatabase;
-import com.example.mylist.product.Product;
 import com.example.mylist.R;
 import com.example.mylist.databinding.FragmentAddProductBinding;
+import com.example.mylist.product.AppDatabase;
+import com.example.mylist.product.Product;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,44 +46,45 @@ public class AddProductFragment extends Fragment {
     private AppDatabase database;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(final @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        takePictureLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    requireActivity();
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        binding.imageProduct.setImageURI(photoUri);
-                        Toast.makeText(getContext(), "Photo saved: " + photoUri.getPath(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "No photo taken", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+        takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            requireActivity();
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                binding.imageProduct.setImageURI(photoUri);
+                Toast.makeText(getContext(), "Photo saved: " + photoUri.getPath(), Toast.LENGTH_SHORT)
+                     .show();
+            } else {
+                Toast.makeText(getContext(), "No photo taken", Toast.LENGTH_SHORT)
+                     .show();
+            }
+        });
 
-        pickFromGalleryLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    requireActivity();
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        final Uri selectedImageUri = result.getData().getData();
-                        binding.imageProduct.setImageURI(selectedImageUri);
-                        photoUri = selectedImageUri;
-                        Toast.makeText(getContext(), "Photo selected from gallery", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+        pickFromGalleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            requireActivity();
+            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                final Uri selectedImageUri = result.getData()
+                                                   .getData();
+                binding.imageProduct.setImageURI(selectedImageUri);
+                photoUri = selectedImageUri;
+                Toast.makeText(getContext(), "Photo selected from gallery", Toast.LENGTH_SHORT)
+                     .show();
+            }
+        });
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final @NonNull LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         binding = FragmentAddProductBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view,
+                              final @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         database = AppDatabase.getInstance(requireContext());
@@ -95,7 +96,7 @@ public class AddProductFragment extends Fragment {
             if (validateInputs()) {
                 saveProduct();
                 NavHostFragment.findNavController(AddProductFragment.this)
-                        .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
+                               .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
             }
         });
     }
@@ -106,11 +107,7 @@ public class AddProductFragment extends Fragment {
         if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
             final File photoFile = createImageFile();
             if (photoFile != null) {
-                photoUri = FileProvider.getUriForFile(
-                        requireContext(),
-                        requireActivity().getPackageName() + ".fileprovider",
-                        photoFile
-                );
+                photoUri = FileProvider.getUriForFile(requireContext(), requireActivity().getPackageName() + ".fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 takePictureLauncher.launch(takePictureIntent);
             }
@@ -130,26 +127,34 @@ public class AddProductFragment extends Fragment {
         try {
             image = File.createTempFile(imageFileName, ".jpg", storageDir);
         } catch (IOException e) {
-            Toast.makeText(getContext(), "Error creating file: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error creating file: " + e.getMessage(), Toast.LENGTH_SHORT)
+                 .show();
         }
         return image;
     }
 
     private void saveProduct() {
-        final String company = binding.editCompany.getText().toString();
-        final String name = binding.editName.getText().toString();
-        final String shop = binding.editShop.getText().toString();
-        final double price = Double.parseDouble(binding.editPrice.getText().toString());
+        final String company = binding.editCompany.getText()
+                                                  .toString();
+        final String name = binding.editName.getText()
+                                            .toString();
+        final String shop = binding.editShop.getText()
+                                            .toString();
+        final double price = Double.parseDouble(binding.editPrice.getText()
+                                                                 .toString());
         final float rating = binding.ratingBar.getRating();
-        final String notes = binding.editNotes.getText().toString();
-        final String category = binding.editCategory.getText().toString();
+        final String notes = binding.editNotes.getText()
+                                              .toString();
+        final String category = binding.editCategory.getText()
+                                                    .toString();
 
         String photoPath = null;
         if (photoUri != null) {
             try {
                 photoPath = saveImageToAppFolder(photoUri);
             } catch (IOException e) {
-                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT)
+                     .show();
                 e.printStackTrace();
             }
         }
@@ -157,15 +162,18 @@ public class AddProductFragment extends Fragment {
         final Product product = new Product(company, name, shop, price, rating, notes, photoPath, category);
 
         new Thread(() -> {
-            database.productDao().insertProduct(product);
+            database.productDao()
+                    .insertProduct(product);
             requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT)
+                     .show();
             });
         }).start();
     }
 
-    private String saveImageToAppFolder(Uri imageUri) throws IOException {
-        final InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+    private String saveImageToAppFolder(final Uri imageUri) throws IOException {
+        final InputStream inputStream = requireContext().getContentResolver()
+                                                        .openInputStream(imageUri);
 
         final File appFolder = new File(requireContext().getFilesDir(), "images");
         if (!appFolder.exists()) {
@@ -191,28 +199,34 @@ public class AddProductFragment extends Fragment {
 
     private boolean validateInputs() {
         if (photoUri == null) {
-            Toast.makeText(getContext(), "No photo available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No photo available", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
 
         if (TextUtils.isEmpty(binding.editCompany.getText())) {
-            Toast.makeText(getContext(), "Company cannot be null or empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Company cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
         if (TextUtils.isEmpty(binding.editName.getText())) {
-            Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
         if (TextUtils.isEmpty(binding.editPrice.getText())) {
-            Toast.makeText(getContext(), "Price cannot be null or empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Price cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
         if (TextUtils.isEmpty(binding.editShop.getText())) {
-            Toast.makeText(getContext(), "Shop cannot be null or empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Shop cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
         if (TextUtils.isEmpty(binding.editCategory.getText())) {
-            Toast.makeText(getContext(), "Category cannot be null or empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Category cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
             return false;
         }
         return true;

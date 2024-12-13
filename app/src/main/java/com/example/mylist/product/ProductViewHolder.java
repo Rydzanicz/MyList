@@ -18,12 +18,12 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     public ProductViewHolder(@NonNull View itemView) {
         super(itemView);
         imageProduct = itemView.findViewById(R.id.imageProduct);
-        textName = itemView.findViewById(R.id.textName);
-        textCompany = itemView.findViewById(R.id.textCompany);
-        textPrice = itemView.findViewById(R.id.textPrice);
-        textShop = itemView.findViewById(R.id.textShop);
+        textName     = itemView.findViewById(R.id.textName);
+        textCompany  = itemView.findViewById(R.id.textCompany);
+        textPrice    = itemView.findViewById(R.id.textPrice);
+        textShop     = itemView.findViewById(R.id.textShop);
         textCategory = itemView.findViewById(R.id.textCategory);
-        textNotes = itemView.findViewById(R.id.textNotes);
-        ratingBar = itemView.findViewById(R.id.ratingBar);
+        textNotes    = itemView.findViewById(R.id.textNotes);
+        ratingBar    = itemView.findViewById(R.id.ratingBar);
     }
 }

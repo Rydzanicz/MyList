@@ -17,15 +17,22 @@ public class Product {
     private String photoPath;
     private String category;
 
-    public Product(String company, String name, String shop, double price, float rating, String notes, String photoPath, String category) {
-        this.company = company;
-        this.name = name;
-        this.shop = shop;
-        this.price = price;
-        this.rating = rating;
-        this.notes = notes;
+    public Product(final String company,
+                   final String name,
+                   final String shop,
+                   final double price,
+                   final float rating,
+                   final String notes,
+                   final String photoPath,
+                   final String category) {
+        this.company   = company;
+        this.name      = name;
+        this.shop      = shop;
+        this.price     = price;
+        this.rating    = rating;
+        this.notes     = notes;
         this.photoPath = photoPath;
-        this.category = category;
+        this.category  = category;
     }
 
     public int getId() {

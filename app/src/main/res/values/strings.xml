@@ -32,4 +32,14 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
+
+    <!--    Item Fragment-->
+
+    <string name="product_name">Product Name</string>
+    <string name="product_company">Company: Example Company</string>
+    <string name="product_price">Price: 0.00</string>
+    <string name="product_shop">Shop: Example Shop</string>
+    <string name="product_category">Category: Example Category</string>
+    <string name="product_notes">Notes: Example Notes</string>
+    <string name="product_rating">Rating:</string>
 </resources>

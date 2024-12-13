@@ -49,6 +49,7 @@
     <string name="sort_products">Sort Products</string>
     <string name="sort_company">Sort by Company</string>
     <string name="sort_name">Sort by Name</string>
+    <string name="sort_category">Sort by Category</string>
     <string name="sort_shop">Sort by Shop</string>
     <string name="unknown_sorting_criterion">Unknown sorting criterion</string>
     <string name="no_products_to_sort">No products to sort</string>

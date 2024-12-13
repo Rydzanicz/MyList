@@ -37,4 +37,7 @@ public interface ProductDao {
     @Query("SELECT * FROM products ORDER BY shop ASC")
     List<Product> getAllProductsSortedByShop();
 
+    @Query("SELECT * FROM products ORDER BY category ASC")
+    List<Product> getAllProductsSortedByCategory();
+
 }

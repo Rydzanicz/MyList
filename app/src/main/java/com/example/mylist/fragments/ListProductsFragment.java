@@ -112,7 +112,8 @@ public class ListProductsFragment extends Fragment {
     private void showSortOptions() {
         String[] options = {getString(R.string.sort_company),
                             getString(R.string.sort_name),
-                            getString(R.string.sort_shop)};
+                            getString(R.string.sort_shop),
+                            getString(R.string.sort_category)};
 
         new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.sort_products)
                                                                                            .setItems(options,
@@ -131,11 +132,15 @@ public class ListProductsFragment extends Fragment {
             case 2:
                 sortProducts("shop");
                 break;
+            case 3:
+                sortProducts("category");
+                break;
             default:
                 Toast.makeText(requireContext(), R.string.unknown_sorting_criterion, Toast.LENGTH_SHORT)
                      .show();
         }
     }
+
 
     private void sortProducts(String criterion) {
         if (productList == null || productList.isEmpty()) {
@@ -157,10 +162,15 @@ public class ListProductsFragment extends Fragment {
                 productList.sort((p1, p2) -> p1.getShop()
                                                .compareToIgnoreCase(p2.getShop()));
                 break;
+            case "category":
+                productList.sort((p1, p2) -> p1.getCategory()
+                                               .compareToIgnoreCase(p2.getCategory()));
+                break;
         }
 
         adapter.updateData(productList);
     }
+
 
     @Override
     public void onDestroyView() {

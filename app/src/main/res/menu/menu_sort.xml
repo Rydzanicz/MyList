@@ -15,4 +15,8 @@
         android:id="@+id/sort_by_shop"
         android:title="@string/sort_shop"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/sort_category"
+        android:title="@string/sort_category"
+        app:showAsAction="never" />
 </menu>

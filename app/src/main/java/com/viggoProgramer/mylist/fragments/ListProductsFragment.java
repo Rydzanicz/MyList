@@ -1,4 +1,4 @@
-package com.example.mylist.fragments;
+package com.viggoProgramer.mylist.fragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,11 +15,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.room.Room;
 
-import com.example.mylist.R;
-import com.example.mylist.databinding.FragmentListProductsBinding;
-import com.example.mylist.product.AppDatabase;
-import com.example.mylist.product.Product;
-import com.example.mylist.product.ProductAdapter;
+import com.viggoProgramer.mylist.R;
+import com.viggoProgramer.mylist.databinding.FragmentListProductsBinding;
+import com.viggoProgramer.mylist.product.AppDatabase;
+import com.viggoProgramer.mylist.product.Product;
+import com.viggoProgramer.mylist.product.ProductAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.mylist;
+package com.viggoProgramer.mylist;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.mylist.databinding.ActivityMainBinding;
+import com.viggoProgramer.mylist.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

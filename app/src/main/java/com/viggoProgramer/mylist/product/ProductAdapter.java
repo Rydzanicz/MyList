@@ -1,4 +1,4 @@
-package com.example.mylist.product;
+package com.viggoProgramer.mylist.product;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mylist.R;
+import com.viggoProgramer.mylist.R;
 
 import java.util.ArrayList;
 import java.util.List;

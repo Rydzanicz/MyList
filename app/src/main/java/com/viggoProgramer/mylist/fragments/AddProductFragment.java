@@ -1,8 +1,10 @@
-package com.example.mylist.fragments;
+package com.viggoProgramer.mylist.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,10 +23,10 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.mylist.R;
-import com.example.mylist.databinding.FragmentAddProductBinding;
-import com.example.mylist.product.AppDatabase;
-import com.example.mylist.product.Product;
+import com.viggoProgramer.mylist.R;
+import com.viggoProgramer.mylist.databinding.FragmentAddProductBinding;
+import com.viggoProgramer.mylist.product.AppDatabase;
+import com.viggoProgramer.mylist.product.Product;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,10 +46,20 @@ public class AddProductFragment extends Fragment {
     private Uri photoUri;
     private static final List<Product> productList = new ArrayList<>();
     private AppDatabase database;
+    private ActivityResultLauncher<String> requestPermissionLauncher;
 
     @Override
     public void onCreate(final @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT)
+                     .show();
+            } else {
+                Toast.makeText(getContext(), "Permission denied. Cannot proceed.", Toast.LENGTH_SHORT)
+                     .show();
+            }
+        });
 
         takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             requireActivity();
@@ -103,19 +115,42 @@ public class AddProductFragment extends Fragment {
 
     @SuppressLint("QueryPermissionsNeeded")
     private void openCamera() {
-        final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            final File photoFile = createImageFile();
-            if (photoFile != null) {
-                photoUri = FileProvider.getUriForFile(requireContext(), requireActivity().getPackageName() + ".fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                takePictureLauncher.launch(takePictureIntent);
+        if (requireContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+        } else {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                File photoFile = createImageFile();
+                if (photoFile != null) {
+                    photoUri = FileProvider.getUriForFile(requireContext(), requireActivity().getPackageName() + ".fileprovider", photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                    takePictureLauncher.launch(takePictureIntent);
+                }
             }
         }
     }
 
     private void openGallery() {
-        final Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+                launchGalleryIntent();
+
+            } else {
+                launchGalleryIntent();
+
+            }
+        } else {
+            if (requireContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+            } else {
+                launchGalleryIntent();
+            }
+        }
+    }
+
+    private void launchGalleryIntent() {
+        Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickFromGalleryLauncher.launch(pickPhotoIntent);
     }
 
@@ -134,13 +169,19 @@ public class AddProductFragment extends Fragment {
     }
 
     private void saveProduct() {
-        final String company = binding.editCompany.getText().toString();
-        final String name = binding.editName.getText().toString();
-        final String shop = binding.editShop.getText().toString();
-        final double price = Double.parseDouble(binding.editPrice.getText().toString());
+        final String company = binding.editCompany.getText()
+                                                  .toString();
+        final String name = binding.editName.getText()
+                                            .toString();
+        final String shop = binding.editShop.getText()
+                                            .toString();
+        final double price = Double.parseDouble(binding.editPrice.getText()
+                                                                 .toString());
         final float rating = binding.ratingBar.getRating();
-        final String notes = binding.editNotes.getText().toString();
-        final String category = binding.editCategory.getText().toString();
+        final String notes = binding.editNotes.getText()
+                                              .toString();
+        final String category = binding.editCategory.getText()
+                                                    .toString();
 
         String photoPath = null;
 
@@ -148,7 +189,8 @@ public class AddProductFragment extends Fragment {
             try {
                 photoPath = saveImageToAppFolder(photoUri);
             } catch (IOException e) {
-                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to save photo", Toast.LENGTH_SHORT)
+                     .show();
                 e.printStackTrace();
             }
         }
@@ -156,9 +198,11 @@ public class AddProductFragment extends Fragment {
         final Product product = new Product(company, name, shop, price, rating, notes, photoPath, category);
 
         new Thread(() -> {
-            database.productDao().insertProduct(product);
+            database.productDao()
+                    .insertProduct(product);
             requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product saved to database!", Toast.LENGTH_SHORT)
+                     .show();
             });
         }).start();
     }
@@ -188,7 +232,6 @@ public class AddProductFragment extends Fragment {
 
         return photoFile.getAbsolutePath();
     }
-
 
     private boolean validateInputs() {
         if (TextUtils.isEmpty(binding.editCompany.getText())) {

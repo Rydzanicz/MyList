@@ -1,4 +1,4 @@
-package com.example.mylist.product;
+package com.viggoProgramer.mylist.product;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

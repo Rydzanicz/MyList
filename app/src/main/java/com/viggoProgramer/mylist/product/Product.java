@@ -1,4 +1,4 @@
-package com.example.mylist.product;
+package com.viggoProgramer.mylist.product;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

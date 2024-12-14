@@ -4,11 +4,11 @@ plugins {
     kotlin("kapt")
 }
 android {
-    namespace = "com.example.mylist"
+    namespace = "com.viggoProgramer.mylist"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.mylist"
+        applicationId = "com.viggoProgramer.mylist"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

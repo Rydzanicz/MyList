@@ -8,7 +8,7 @@
     <!-- Fragment Listy Produktów -->
     <fragment
         android:id="@+id/ListProductsFragment"
-        android:name="com.example.mylist.fragments.ListProductsFragment"
+        android:name="com.viggoProgramer.mylist.fragments.ListProductsFragment"
         android:label="@string/list_products_fragment_label"
         tools:layout="@layout/fragment_list_products">
 
@@ -26,7 +26,7 @@
     <!-- Fragment Dodawania Produktu -->
     <fragment
         android:id="@+id/AddProductFragment"
-        android:name="com.example.mylist.fragments.AddProductFragment"
+        android:name="com.viggoProgramer.mylist.fragments.AddProductFragment"
         android:label="@string/add_product_fragment_label"
         tools:layout="@layout/fragment_add_product">
 
@@ -39,7 +39,7 @@
     <!-- Fragment Edycji Produktu -->
     <fragment
         android:id="@+id/EditProductFragment"
-        android:name="com.example.mylist.fragments.EditProductFragment"
+        android:name="com.viggoProgramer.mylist.fragments.EditProductFragment"
         android:label="@string/edit_product_fragment_label"
         tools:layout="@layout/fragment_edit_product">
 

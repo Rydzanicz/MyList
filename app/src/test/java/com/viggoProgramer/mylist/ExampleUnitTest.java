@@ -1,4 +1,4 @@
-package com.example.mylist;
+package com.viggoProgramer.mylist;
 
 import org.junit.Test;
 

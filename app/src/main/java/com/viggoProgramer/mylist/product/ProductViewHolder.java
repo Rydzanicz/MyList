@@ -1,4 +1,4 @@
-package com.example.mylist.product;
+package com.viggoProgramer.mylist.product;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mylist.R;
+import com.viggoProgramer.mylist.R;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder {
     final ImageView imageProduct;

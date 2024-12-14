@@ -30,6 +30,7 @@ public class ListProductsFragment extends Fragment {
     private AppDatabase database;
     private ProductAdapter adapter;
     private List<Product> productList;
+    private String currentSortCriterion = "Sort";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,6 +44,7 @@ public class ListProductsFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.buttonSort.setText(currentSortCriterion);
 
         initializeDatabase();
         setupRecyclerView();
@@ -124,21 +126,30 @@ public class ListProductsFragment extends Fragment {
     private void handleSortSelection(int which) {
         switch (which) {
             case 0:
+                currentSortCriterion = "Company";
                 sortProducts("company");
                 break;
             case 1:
+                currentSortCriterion = "Name";
                 sortProducts("name");
                 break;
             case 2:
+                currentSortCriterion ="Shop";
                 sortProducts("shop");
                 break;
             case 3:
+                currentSortCriterion = "Category";
                 sortProducts("category");
                 break;
             default:
                 Toast.makeText(requireContext(), R.string.unknown_sorting_criterion, Toast.LENGTH_SHORT)
                      .show();
         }
+        updateSortButtonText();
+    }
+
+    private void updateSortButtonText() {
+        binding.buttonSort.setText(currentSortCriterion);
     }
 
 

@@ -18,7 +18,8 @@
         app:iconTint="@color/black"
         app:layout_constraintBaseline_toBaselineOf="@id/search_bar_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.4"/>
 
     <!-- Search Bar -->
     <com.google.android.material.textfield.TextInputLayout

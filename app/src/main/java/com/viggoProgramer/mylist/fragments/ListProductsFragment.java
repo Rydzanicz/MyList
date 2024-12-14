@@ -100,7 +100,7 @@ public class ListProductsFragment extends Fragment {
     }
 
     private void filterProducts(final String query) {
-        List<Product> filteredList = new ArrayList<>();
+        final List<Product> filteredList = new ArrayList<>();
         for (Product product : productList) {
             if (product.getName()
                        .toLowerCase()
@@ -112,10 +112,10 @@ public class ListProductsFragment extends Fragment {
     }
 
     private void showSortOptions() {
-        String[] options = {getString(R.string.sort_company),
-                            getString(R.string.sort_name),
-                            getString(R.string.sort_shop),
-                            getString(R.string.sort_category)};
+        final String[] options = {getString(R.string.sort_company),
+                                  getString(R.string.sort_name),
+                                  getString(R.string.sort_shop),
+                                  getString(R.string.sort_category)};
 
         new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.sort_products)
                                                                                            .setItems(options,
@@ -134,7 +134,7 @@ public class ListProductsFragment extends Fragment {
                 sortProducts("name");
                 break;
             case 2:
-                currentSortCriterion ="Shop";
+                currentSortCriterion = "Shop";
                 sortProducts("shop");
                 break;
             case 3:

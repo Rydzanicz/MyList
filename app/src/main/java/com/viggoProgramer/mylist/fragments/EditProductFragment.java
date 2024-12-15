@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.viggoProgramer.mylist.R;
+import com.viggoProgramer.mylist.ads.AdManager;
 import com.viggoProgramer.mylist.databinding.FragmentEditProductBinding;
 import com.viggoProgramer.mylist.product.AppDatabase;
 import com.viggoProgramer.mylist.product.Product;
@@ -100,10 +101,15 @@ public class EditProductFragment extends Fragment {
             final int productId = getArguments().getInt("productId");
             loadProduct(productId);
         }
+        AdManager.loadInterstitialAd(requireContext());
 
         binding.buttonSaveChanges.setOnClickListener(v -> {
             if (validateInputs()) {
-                updateProduct();
+                saveChanges();
+                AdManager.showInterstitialAd(requireContext(), () -> {
+                    NavHostFragment.findNavController(this)
+                                   .navigate(R.id.action_EditProductFragment_to_ListProductsFragment);
+                });
             }
         });
 
@@ -196,7 +202,7 @@ public class EditProductFragment extends Fragment {
         return true;
     }
 
-    private void updateProduct() {
+    private void saveChanges() {
         product.setName(binding.editTextName.getText()
                                             .toString());
         product.setCompany(binding.editTextCompany.getText()
@@ -220,16 +226,11 @@ public class EditProductFragment extends Fragment {
             }
         }
 
-        executor.execute(() -> {
-            database.productDao()
-                    .updateProduct(product);
-            requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT)
-                     .show();
-                NavHostFragment.findNavController(EditProductFragment.this)
-                               .navigate(R.id.action_EditProductFragment_to_ListProductsFragment);
-            });
-        });
+
+        new Thread(() -> {
+            database.productDao().updateProduct(product);
+            requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT).show());
+        }).start();
     }
 
     @SuppressLint("QueryPermissionsNeeded")

@@ -50,6 +50,7 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
+    implementation("com.google.android.gms:play-services-ads:23.6.0")
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)

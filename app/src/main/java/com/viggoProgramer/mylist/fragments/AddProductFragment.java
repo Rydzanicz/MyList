@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.viggoProgramer.mylist.R;
+import com.viggoProgramer.mylist.ads.AdManager;
 import com.viggoProgramer.mylist.databinding.FragmentAddProductBinding;
 import com.viggoProgramer.mylist.product.AppDatabase;
 import com.viggoProgramer.mylist.product.Product;
@@ -100,15 +101,21 @@ public class AddProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         database = AppDatabase.getInstance(requireContext());
+        AdManager.loadInterstitialAd(requireContext());
 
         binding.buttonAddPhotoCamera.setOnClickListener(v -> openCamera());
         binding.buttonAddPhotoGallery.setOnClickListener(v -> openGallery());
-        binding.buttonCancel.setOnClickListener(v -> requireActivity().onBackPressed());
+        binding.buttonCancel.setOnClickListener(v -> AdManager.showInterstitialAd(requireContext(), () -> {
+            NavHostFragment.findNavController(this)
+                           .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
+        }));
         binding.buttonSave.setOnClickListener(v -> {
             if (validateInputs()) {
                 saveProduct();
-                NavHostFragment.findNavController(AddProductFragment.this)
-                               .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
+                AdManager.showInterstitialAd(requireContext(), () -> {
+                    NavHostFragment.findNavController(this)
+                                   .navigate(R.id.action_AddProductFragment_to_ListProductsFragment);
+                });
             }
         });
     }

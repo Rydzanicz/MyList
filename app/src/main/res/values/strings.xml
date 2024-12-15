@@ -4,6 +4,7 @@
     <string name="list_products_fragment_label">List of products</string>
     <string name="add_product_fragment_label">Add product</string>
     <string name="edit_product_fragment_label">Edit product</string>
+    <string name="settings_product_fragment_label">Settings</string>
 
     <!--    Edit & Add Fragment-->
     <string name="addPhotoCamera">Add Photo (Camera)</string>

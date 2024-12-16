@@ -42,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == R.id.menu_settings) {
             final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.settingsFragment);
-            return true;
+
+            if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.ListProductsFragment) {
+                navController.navigate(R.id.settingsFragment);
+                return true;
+            } else {
+                return false;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

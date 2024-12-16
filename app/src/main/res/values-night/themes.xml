@@ -5,6 +5,7 @@
     </style>
     <style name="AppTheme.Button" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">@color/darkGray</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="BoxBackgroundStyle" parent="Widget.Material3.TextInputLayout.FilledBox">

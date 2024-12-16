@@ -16,6 +16,8 @@
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_placeholder"
+            android:background="@drawable/rounded_image_background"
+            android:clipToOutline="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/addPhotoCamera"
-            android:textColor="@android:color/black"
             style="@style/AppTheme.Button"
             app:layout_constraintEnd_toStartOf="@id/buttonChangePhoto"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/addPhotoGallery"
-            android:textColor="@android:color/black"
             style="@style/AppTheme.Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/buttonTakePhoto"
@@ -191,7 +191,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/delete"
-                android:textColor="@android:color/black"
                 style="@style/AppTheme.Button"/>
 
             <View
@@ -204,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/save"
-                android:textColor="@android:color/black"
                 style="@style/AppTheme.Button"/>
         </LinearLayout>
 

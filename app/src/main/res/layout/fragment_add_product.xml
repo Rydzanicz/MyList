@@ -15,10 +15,12 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder"
+            android:background="@drawable/rounded_image_background"
+            android:clipToOutline="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_placeholder"
             android:layout_marginBottom="16dp" />
 
         <Button
@@ -30,7 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintEnd_toStartOf="@id/buttonAddPhotoGallery"
-            android:textColor="@android:color/black"
             style="@style/AppTheme.Button"/>
 
         <Button
@@ -41,7 +42,6 @@
             app:layout_constraintTop_toBottomOf="@id/imageProduct"
             app:layout_constraintStart_toEndOf="@id/buttonAddPhotoCamera"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/black"
             style="@style/AppTheme.Button" />
 
         <TextView
@@ -197,7 +197,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cancel"
-                android:textColor="@android:color/black"
                 style="@style/AppTheme.Button" />
 
             <View
@@ -210,7 +209,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/save"
-                android:textColor="@android:color/black"
                 style="@style/AppTheme.Button" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,16 +33,16 @@ public class ListProductsFragment extends Fragment {
     private String currentSortCriterion = "Sort";
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final @NonNull LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         binding = FragmentListProductsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view,
+                              final @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.buttonSort.setText(currentSortCriterion);
 
@@ -94,7 +94,7 @@ public class ListProductsFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
             }
         });
     }
@@ -123,7 +123,7 @@ public class ListProductsFragment extends Fragment {
                                                                                            .show();
     }
 
-    private void handleSortSelection(int which) {
+    private void handleSortSelection(final int which) {
         switch (which) {
             case 0:
                 currentSortCriterion = "Company";
@@ -153,7 +153,7 @@ public class ListProductsFragment extends Fragment {
     }
 
 
-    private void sortProducts(String criterion) {
+    private void sortProducts(final String criterion) {
         if (productList == null || productList.isEmpty()) {
             Toast.makeText(requireContext(), R.string.no_products_to_sort, Toast.LENGTH_SHORT)
                  .show();

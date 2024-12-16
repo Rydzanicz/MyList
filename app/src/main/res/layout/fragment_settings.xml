@@ -9,7 +9,7 @@
         android:id="@+id/edit_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Wpisz kod"
+        android:hint="@string/enter_code"
         android:inputType="text"
         android:padding="12dp"
         android:backgroundTint="@color/black" />
@@ -19,6 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Zapisz"
+        android:text="@string/save"
         android:textAllCaps="false" />
 </LinearLayout>

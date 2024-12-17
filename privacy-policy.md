@@ -39,5 +39,4 @@ Email: rydzanicz.mm@gmail.com
 We reserve the right to update this Privacy Policy. The latest version will always be available in the app or at the following link:
 
 Privacy Policy Link:
-https://github.com/Rydzanicz/MyList/blob/main/privacy-policy.md
-
+https://github.com/Rydzanicz/MyList/blob/master/privacy-policy.md

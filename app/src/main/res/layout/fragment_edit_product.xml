@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/imageProduct" />
 
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/viewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -54,98 +54,98 @@
             app:layout_constraintTop_toBottomOf="@id/buttonChangePhoto" />
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/editName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+            app:layout_constraintTop_toBottomOf="@id/viewName" />
 
         <TextView
-            android:id="@+id/textViewCompany"
+            android:id="@+id/viewCompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/company"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextName" />
+            app:layout_constraintTop_toBottomOf="@id/editName" />
 
         <EditText
-            android:id="@+id/editTextCompany"
+            android:id="@+id/editCompany"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_company"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewCompany" />
+            app:layout_constraintTop_toBottomOf="@id/viewCompany" />
 
         <TextView
-            android:id="@+id/textViewShop"
+            android:id="@+id/viewShop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/shop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextCompany" />
+            app:layout_constraintTop_toBottomOf="@id/editCompany" />
 
         <EditText
-            android:id="@+id/editTextShop"
+            android:id="@+id/editShop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_shop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewShop" />
+            app:layout_constraintTop_toBottomOf="@id/viewShop" />
 
         <TextView
-            android:id="@+id/textViewPrice"
+            android:id="@+id/viewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/price"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextShop" />
+            app:layout_constraintTop_toBottomOf="@id/editShop" />
 
         <EditText
-            android:id="@+id/editTextPrice"
+            android:id="@+id/editPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_price"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
+            app:layout_constraintTop_toBottomOf="@id/viewPrice" />
 
         <TextView
-            android:id="@+id/textViewCategory"
+            android:id="@+id/viewCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/category"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextPrice" />
+            app:layout_constraintTop_toBottomOf="@id/editPrice" />
 
         <EditText
-            android:id="@+id/editTextCategory"
+            android:id="@+id/editCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
+            app:layout_constraintTop_toBottomOf="@id/viewCategory" />
 
         <TextView
-            android:id="@+id/textViewNotes"
+            android:id="@+id/viewNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/notes"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextCategory" />
+            app:layout_constraintTop_toBottomOf="@id/editCategory" />
 
         <EditText
-            android:id="@+id/editTextNotes"
+            android:id="@+id/editNotes"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
@@ -155,16 +155,16 @@
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewNotes" />
+            app:layout_constraintTop_toBottomOf="@id/viewNotes" />
 
         <TextView
-            android:id="@+id/textViewRating"
+            android:id="@+id/viewRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/rating"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextNotes" />
+            app:layout_constraintTop_toBottomOf="@id/editNotes" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -174,7 +174,7 @@
             android:numStars="5"
             android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewRating" />
+            app:layout_constraintTop_toBottomOf="@id/viewRating" />
 
         <LinearLayout
             android:layout_width="match_parent"

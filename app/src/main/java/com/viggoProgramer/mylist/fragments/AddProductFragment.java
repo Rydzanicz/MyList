@@ -180,8 +180,11 @@ public class AddProductFragment extends Fragment {
                                             .toString();
         final String shop = binding.editShop.getText()
                                             .toString();
-        final double price = Double.parseDouble(binding.editPrice.getText()
-                                                                 .toString());
+        final String priceString = binding.editPrice.getText()
+                                                    .toString();
+        double price = TextUtils.isEmpty(priceString) ?
+                0.0 :
+                Double.parseDouble(priceString);
         final float rating = binding.ratingBar.getRating();
         final String notes = binding.editNotes.getText()
                                               .toString();
@@ -238,28 +241,8 @@ public class AddProductFragment extends Fragment {
     }
 
     private boolean validateInputs() {
-        if (TextUtils.isEmpty(binding.editCompany.getText())) {
-            Toast.makeText(getContext(), "Company cannot be null or empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
         if (TextUtils.isEmpty(binding.editName.getText())) {
             Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editPrice.getText())) {
-            Toast.makeText(getContext(), "Price cannot be null or empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editShop.getText())) {
-            Toast.makeText(getContext(), "Shop cannot be null or empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editCategory.getText())) {
-            Toast.makeText(getContext(), "Category cannot be null or empty", Toast.LENGTH_SHORT)
                  .show();
             return false;
         }

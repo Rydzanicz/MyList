@@ -158,12 +158,12 @@ public class EditProductFragment extends Fragment {
     }
 
     private void populateFields() {
-        binding.editTextName.setText(product.getName());
-        binding.editTextCompany.setText(product.getCompany());
-        binding.editTextPrice.setText(String.valueOf(product.getPrice()));
-        binding.editTextShop.setText(product.getShop());
-        binding.editTextCategory.setText(product.getCategory());
-        binding.editTextNotes.setText(product.getNotes());
+        binding.editName.setText(product.getName());
+        binding.editCompany.setText(product.getCompany());
+        binding.editPrice.setText(String.valueOf(product.getPrice()));
+        binding.editShop.setText(product.getShop());
+        binding.editCategory.setText(product.getCategory());
+        binding.editNotes.setText(product.getNotes());
         binding.ratingBar.setRating(product.getRating());
 
         if (product.getPhotoPath() != null) {
@@ -174,28 +174,8 @@ public class EditProductFragment extends Fragment {
     }
 
     private boolean validateInputs() {
-        if (TextUtils.isEmpty(binding.editTextName.getText())) {
-            Toast.makeText(getContext(), "Name cannot be empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editTextCompany.getText())) {
-            Toast.makeText(getContext(), "Company cannot be empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editTextPrice.getText())) {
-            Toast.makeText(getContext(), "Price cannot be empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editTextShop.getText())) {
-            Toast.makeText(getContext(), "Shop cannot be empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.editTextCategory.getText())) {
-            Toast.makeText(getContext(), "Category cannot be empty", Toast.LENGTH_SHORT)
+        if (TextUtils.isEmpty(binding.editName.getText())) {
+            Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT)
                  .show();
             return false;
         }
@@ -203,20 +183,23 @@ public class EditProductFragment extends Fragment {
     }
 
     private void saveChanges() {
-        product.setName(binding.editTextName.getText()
-                                            .toString());
-        product.setCompany(binding.editTextCompany.getText()
-                                                  .toString());
-        product.setPrice(Double.parseDouble(binding.editTextPrice.getText()
-                                                                 .toString()));
-        product.setShop(binding.editTextShop.getText()
-                                            .toString());
-        product.setCategory(binding.editTextCategory.getText()
-                                                    .toString());
-        product.setNotes(binding.editTextNotes.getText()
+        product.setName(binding.editName.getText()
+                                        .toString());
+        product.setCompany(binding.editCompany.getText()
                                               .toString());
+        final String priceString = binding.editPrice.getText()
+                                                    .toString();
+        double price = TextUtils.isEmpty(priceString) ?
+                0.0 :
+                Double.parseDouble(priceString);
+        product.setPrice(price);
+        product.setShop(binding.editShop.getText()
+                                        .toString());
+        product.setCategory(binding.editCategory.getText()
+                                                .toString());
+        product.setNotes(binding.editNotes.getText()
+                                          .toString());
         product.setRating(binding.ratingBar.getRating());
-
         if (photoUri != null) {
             try {
                 product.setPhotoPath(saveImageToAppFolder(photoUri));
@@ -228,8 +211,10 @@ public class EditProductFragment extends Fragment {
 
 
         new Thread(() -> {
-            database.productDao().updateProduct(product);
-            requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT).show());
+            database.productDao()
+                    .updateProduct(product);
+            requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT)
+                                                       .show());
         }).start();
     }
 

@@ -137,11 +137,11 @@ public class AddProductFragment extends Fragment {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void openGallery() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
-                launchGalleryIntent();
             } else {
                 launchGalleryIntent();
             }
@@ -211,7 +211,6 @@ public class AddProductFragment extends Fragment {
             });
         }).start();
     }
-
 
     private String saveImageToAppFolder(final Uri imageUri) throws IOException {
         final InputStream inputStream = requireContext().getContentResolver()

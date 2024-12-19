@@ -250,15 +250,13 @@ public class EditProductFragment extends Fragment {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void openGallery() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
-                launchGalleryIntent();
-
             } else {
                 launchGalleryIntent();
-
             }
         } else {
             if (requireContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

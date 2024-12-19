@@ -15,11 +15,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.room.Room;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.viggoProgramer.mylist.R;
 import com.viggoProgramer.mylist.databinding.FragmentListProductsBinding;
 import com.viggoProgramer.mylist.product.AppDatabase;
 import com.viggoProgramer.mylist.product.Product;
 import com.viggoProgramer.mylist.product.ProductAdapter;
+import com.viggoProgramer.mylist.product.ShopTag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,8 @@ public class ListProductsFragment extends Fragment {
     private ProductAdapter adapter;
     private List<Product> productList;
     private String currentSortCriterion = "Sort";
+    private ChipGroup chipGroupShopTags;
+    private List<String> selectedTags;
 
     @Override
     public View onCreateView(final @NonNull LayoutInflater inflater,
@@ -51,6 +56,10 @@ public class ListProductsFragment extends Fragment {
         setupFabButton();
         setupSortButton();
         setupSearchFunctionality();
+        selectedTags = new ArrayList<>();
+        chipGroupShopTags = view.findViewById(R.id.chipGroupShopTags);
+
+        loadTags();
     }
 
     private void initializeDatabase() {
@@ -59,6 +68,36 @@ public class ListProductsFragment extends Fragment {
                           .build();
         productList = database.productDao()
                               .getAllProducts();
+    }
+    private void loadTags() {
+        new Thread(() -> {
+            List<ShopTag> tags = database.shopTagDao().getAllShopTags();
+            requireActivity().runOnUiThread(() -> {
+                if (chipGroupShopTags == null) {
+                    Toast.makeText(requireContext(), "ChipGroup not initialized", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                chipGroupShopTags.removeAllViews();
+                for (ShopTag tag : tags) {
+                    addChipToChipGroup(tag.getTagName());
+                }
+            });
+        }).start();
+    }
+
+    private void addChipToChipGroup(String tagName) {
+        Chip chip = new Chip(requireContext());
+        chip.setText(tagName);
+        chip.setCheckable(true);
+        chip.setChipStrokeWidth(1f);
+        chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectedTags.add(tagName);
+            } else {
+                selectedTags.remove(tagName);
+            }
+        });
+        chipGroupShopTags.addView(chip);
     }
 
     private void setupRecyclerView() {
@@ -114,7 +153,6 @@ public class ListProductsFragment extends Fragment {
     private void showSortOptions() {
         final String[] options = {getString(R.string.sort_company),
                                   getString(R.string.sort_name),
-                                  getString(R.string.sort_shop),
                                   getString(R.string.sort_category)};
 
         new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.sort_products)
@@ -134,10 +172,6 @@ public class ListProductsFragment extends Fragment {
                 sortProducts("name");
                 break;
             case 2:
-                currentSortCriterion = "Shop";
-                sortProducts("shop");
-                break;
-            case 3:
                 currentSortCriterion = "Category";
                 sortProducts("category");
                 break;
@@ -161,17 +195,13 @@ public class ListProductsFragment extends Fragment {
         }
 
         switch (criterion) {
-            case "company":
-                productList.sort((p1, p2) -> p1.getCompany()
-                                               .compareToIgnoreCase(p2.getCompany()));
-                break;
             case "name":
                 productList.sort((p1, p2) -> p1.getName()
                                                .compareToIgnoreCase(p2.getName()));
                 break;
-            case "shop":
-                productList.sort((p1, p2) -> p1.getShop()
-                                               .compareToIgnoreCase(p2.getShop()));
+            case "company":
+                productList.sort((p1, p2) -> p1.getCompany()
+                                               .compareToIgnoreCase(p2.getCompany()));
                 break;
             case "category":
                 productList.sort((p1, p2) -> p1.getCategory()

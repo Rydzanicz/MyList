@@ -81,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@id/viewCompany" />
 
         <TextView
-            android:id="@+id/viewShop"
+            android:id="@+id/viewShopTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -89,14 +89,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editCompany" />
 
-        <EditText
-            android:id="@+id/editShop"
-            android:layout_width="0dp"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupShopTags"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_shop"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewShop" />
+            app:layout_constraintTop_toBottomOf="@id/viewShopTags" />
+
+        <Button
+            android:id="@+id/buttonAddTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/enter_shop"
+            style="@style/AppTheme.Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroupShopTags" />
 
         <TextView
             android:id="@+id/viewPrice"
@@ -105,7 +116,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/price"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editShop" />
+            app:layout_constraintTop_toBottomOf="@id/buttonAddTags" />
 
         <EditText
             android:id="@+id/editPrice"
@@ -191,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/delete"
-                style="@style/AppTheme.Button"/>
+                style="@style/AppTheme.Button" />
 
             <View
                 android:layout_width="16dp"
@@ -203,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/save"
-                style="@style/AppTheme.Button"/>
+                style="@style/AppTheme.Button" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

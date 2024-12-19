@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,17 +25,22 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.viggoProgramer.mylist.R;
 import com.viggoProgramer.mylist.ads.AdManager;
 import com.viggoProgramer.mylist.databinding.FragmentEditProductBinding;
 import com.viggoProgramer.mylist.product.AppDatabase;
 import com.viggoProgramer.mylist.product.Product;
+import com.viggoProgramer.mylist.product.ShopTag;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,6 +54,8 @@ public class EditProductFragment extends Fragment {
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private ActivityResultLauncher<Intent> takePictureLauncher;
     private ActivityResultLauncher<Intent> pickFromGalleryLauncher;
+    private List<String> selectedTags;
+    private ChipGroup chipGroupShopTags;
 
     @Override
     public View onCreateView(final @NonNull LayoutInflater inflater,
@@ -97,6 +105,10 @@ public class EditProductFragment extends Fragment {
 
         database = AppDatabase.getInstance(requireContext());
 
+        chipGroupShopTags = view.findViewById(R.id.chipGroupShopTags);
+        view.findViewById(R.id.buttonAddTags)
+            .setOnClickListener(v -> showAddTagDialog());
+
         if (getArguments() != null) {
             final int productId = getArguments().getInt("productId");
             loadProduct(productId);
@@ -126,6 +138,64 @@ public class EditProductFragment extends Fragment {
                                                      })
                                                      .show();
         });
+    }
+
+    private void showAddTagDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle(getString(R.string.enter_shop));
+
+        final LayoutInflater inflater = requireActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_add_tag, null);
+        final EditText editTextTagName = dialogView.findViewById(R.id.editTextTagName);
+
+        builder.setView(dialogView)
+               .setPositiveButton(getString(R.string.save), (dialog, id) -> {
+                   String tagName = editTextTagName.getText()
+                                                   .toString()
+                                                   .trim();
+                   if (!TextUtils.isEmpty(tagName)) {
+                       saveTagToDatabase(tagName);
+                   } else {
+                       Toast.makeText(requireContext(), getString(R.string.shop_name_empty), Toast.LENGTH_SHORT)
+                            .show();
+                   }
+               })
+               .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.dismiss());
+
+        builder.create()
+               .show();
+    }
+
+    private void saveTagToDatabase(final String tagName) {
+        new Thread(() -> {
+            final ShopTag newTag = new ShopTag(tagName);
+            database.shopTagDao()
+                    .insertShopTag(newTag);
+            requireActivity().runOnUiThread(() -> {
+                addChipToGroup(tagName);
+                Toast.makeText(requireContext(), getString(R.string.enter_shop), Toast.LENGTH_SHORT)
+                     .show();
+            });
+        }).start();
+    }
+
+    private void addChipToGroup(final String tagName) {
+        final Chip chip = new Chip(requireContext());
+        chip.setText(tagName);
+        chip.setCheckable(true);
+        chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                if (selectedTags == null) {
+                    selectedTags = new ArrayList<>();
+                }
+                selectedTags.add(tagName);
+            } else {
+                if (selectedTags != null) {
+                    selectedTags.remove(tagName);
+                }
+            }
+        });
+        chipGroupShopTags.addView(chip);
     }
 
     private void deleteProduct() {
@@ -161,7 +231,6 @@ public class EditProductFragment extends Fragment {
         binding.editName.setText(product.getName());
         binding.editCompany.setText(product.getCompany());
         binding.editPrice.setText(String.valueOf(product.getPrice()));
-        binding.editShop.setText(product.getShop());
         binding.editCategory.setText(product.getCategory());
         binding.editNotes.setText(product.getNotes());
         binding.ratingBar.setRating(product.getRating());
@@ -171,35 +240,56 @@ public class EditProductFragment extends Fragment {
         } else {
             binding.imageProduct.setImageResource(R.drawable.ic_placeholder);
         }
+
+        if (chipGroupShopTags != null) {
+            chipGroupShopTags.removeAllViews();
+            List<String> productTags = product.getShop() != null ?
+                    product.getShop() :
+                    new ArrayList<>();
+
+            new Thread(() -> {
+                List<ShopTag> allTags = database.shopTagDao()
+                                                .getAllShopTags();
+                requireActivity().runOnUiThread(() -> {
+                    for (ShopTag tag : allTags) {
+                        Chip chip = new Chip(requireContext());
+                        chip.setText(tag.getTagName());
+                        chip.setCheckable(true);
+                        chip.setChecked(productTags.contains(tag.getTagName()));
+
+                        chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                            if (isChecked) {
+                                selectedTags.add(tag.getTagName());
+                            } else {
+                                selectedTags.remove(tag.getTagName());
+                            }
+                        });
+                        selectedTags = new ArrayList<>(product.getShop());
+                        chipGroupShopTags.addView(chip);
+                    }
+                });
+            }).start();
+        } else {
+            Toast.makeText(requireContext(), "Error loading tags", Toast.LENGTH_SHORT)
+                 .show();
+        }
     }
 
-    private boolean validateInputs() {
-        if (TextUtils.isEmpty(binding.editName.getText())) {
-            Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT)
-                 .show();
-            return false;
-        }
-        return true;
-    }
 
     private void saveChanges() {
         product.setName(binding.editName.getText()
                                         .toString());
         product.setCompany(binding.editCompany.getText()
                                               .toString());
-        final String priceString = binding.editPrice.getText()
-                                                    .toString();
-        double price = TextUtils.isEmpty(priceString) ?
-                0.0 :
-                Double.parseDouble(priceString);
-        product.setPrice(price);
-        product.setShop(binding.editShop.getText()
-                                        .toString());
+        product.setPrice(Double.parseDouble(binding.editPrice.getText()
+                                                             .toString()));
         product.setCategory(binding.editCategory.getText()
                                                 .toString());
         product.setNotes(binding.editNotes.getText()
                                           .toString());
         product.setRating(binding.ratingBar.getRating());
+
+        product.setShop(new ArrayList<>(selectedTags));
         if (photoUri != null) {
             try {
                 product.setPhotoPath(saveImageToAppFolder(photoUri));
@@ -209,13 +299,22 @@ public class EditProductFragment extends Fragment {
             }
         }
 
-
         new Thread(() -> {
             database.productDao()
                     .updateProduct(product);
             requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT)
                                                        .show());
         }).start();
+    }
+
+
+    private boolean validateInputs() {
+        if (TextUtils.isEmpty(binding.editName.getText())) {
+            Toast.makeText(getContext(), "Name cannot be null or empty", Toast.LENGTH_SHORT)
+                 .show();
+            return false;
+        }
+        return true;
     }
 
     @SuppressLint("QueryPermissionsNeeded")

@@ -17,6 +17,7 @@
 
     <string name="shop">Shop:</string>
     <string name="enter_shop">Enter shop name</string>
+    <string name="shop_name_empty">Shop name empty</string>
 
     <string name="price">Price:</string>
     <string name="enter_price">Enter product price</string>

@@ -1,19 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/sort_by_company"
-        android:title="@string/sort_company"
-        app:showAsAction="never" />
-
     <item
         android:id="@+id/sort_by_name"
         android:title="@string/sort_name"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/sort_by_shop"
-        android:title="@string/sort_shop"
+        android:id="@+id/sort_by_company"
+        android:title="@string/sort_company"
         app:showAsAction="never" />
     <item
         android:id="@+id/sort_category"

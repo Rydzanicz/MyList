@@ -3,6 +3,8 @@ package com.viggoProgramer.mylist.product;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(tableName = "products")
 public class Product {
     @PrimaryKey(autoGenerate = true)
@@ -10,7 +12,7 @@ public class Product {
 
     private String company;
     private String name;
-    private String shop;
+    private List<String> shop;
     private double price;
     private float rating;
     private String notes;
@@ -19,7 +21,7 @@ public class Product {
 
     public Product(final String company,
                    final String name,
-                   final String shop,
+                   final List<String> shop,
                    final double price,
                    final float rating,
                    final String notes,
@@ -39,7 +41,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -47,7 +49,7 @@ public class Product {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(final String company) {
         this.company = company;
     }
 
@@ -55,15 +57,15 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public String getShop() {
+    public List<String> getShop() {
         return shop;
     }
 
-    public void setShop(String shop) {
+    public void setShop(final List<String> shop) {
         this.shop = shop;
     }
 
@@ -71,7 +73,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(final double price) {
         this.price = price;
     }
 
@@ -79,7 +81,7 @@ public class Product {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(final float rating) {
         this.rating = rating;
     }
 
@@ -87,7 +89,7 @@ public class Product {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public void setNotes(final String notes) {
         this.notes = notes;
     }
 
@@ -95,7 +97,7 @@ public class Product {
         return photoPath;
     }
 
-    public void setPhotoPath(String photoPath) {
+    public void setPhotoPath(final String photoPath) {
         this.photoPath = photoPath;
     }
 
@@ -103,7 +105,7 @@ public class Product {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(final String category) {
         this.category = category;
     }
 }

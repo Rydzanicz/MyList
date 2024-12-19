@@ -3,6 +3,7 @@ package com.viggoProgramer.mylist.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,11 +25,14 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.viggoProgramer.mylist.R;
 import com.viggoProgramer.mylist.ads.AdManager;
 import com.viggoProgramer.mylist.databinding.FragmentAddProductBinding;
 import com.viggoProgramer.mylist.product.AppDatabase;
 import com.viggoProgramer.mylist.product.Product;
+import com.viggoProgramer.mylist.product.ShopTag;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,6 +53,8 @@ public class AddProductFragment extends Fragment {
     private static final List<Product> productList = new ArrayList<>();
     private AppDatabase database;
     private ActivityResultLauncher<String> requestPermissionLauncher;
+    private ChipGroup chipGroupShopTags;
+    private List<String> selectedTags;
 
     @Override
     public void onCreate(final @Nullable Bundle savedInstanceState) {
@@ -118,6 +125,14 @@ public class AddProductFragment extends Fragment {
                 });
             }
         });
+
+        chipGroupShopTags = view.findViewById(R.id.chipGroupShopTags);
+        database          = AppDatabase.getInstance(requireContext());
+
+        loadShopTags();
+
+        view.findViewById(R.id.buttonAddTags)
+            .setOnClickListener(v -> showAddTagDialog());
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -178,8 +193,8 @@ public class AddProductFragment extends Fragment {
                                                   .toString();
         final String name = binding.editName.getText()
                                             .toString();
-        final String shop = binding.editShop.getText()
-                                            .toString();
+        final List<String> shop = new ArrayList<>(selectedTags);
+
         final String priceString = binding.editPrice.getText()
                                                     .toString();
         double price = TextUtils.isEmpty(priceString) ?
@@ -247,6 +262,77 @@ public class AddProductFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void loadShopTags() {
+        new Thread(() -> {
+            final List<ShopTag> shopTags = database.shopTagDao()
+                                                   .getAllShopTags();
+            requireActivity().runOnUiThread(() -> {
+                chipGroupShopTags.removeAllViews();
+                for (ShopTag tag : shopTags) {
+                    addChipToGroup(tag.getTagName());
+                }
+            });
+        }).start();
+    }
+
+    private void addChipToGroup(final String tagName) {
+        final Chip chip = new Chip(requireContext());
+        chip.setText(tagName);
+        chip.setCheckable(true);
+        chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                if (selectedTags == null) {
+                    selectedTags = new ArrayList<>();
+                }
+                selectedTags.add(tagName);
+            } else {
+                if (selectedTags != null) {
+                    selectedTags.remove(tagName);
+                }
+            }
+        });
+        chipGroupShopTags.addView(chip);
+    }
+
+    private void showAddTagDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle(getString(R.string.enter_shop));
+
+        final LayoutInflater inflater = requireActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_add_tag, null);
+        final EditText editTextTagName = dialogView.findViewById(R.id.editTextTagName);
+
+        builder.setView(dialogView)
+               .setPositiveButton(getString(R.string.save), (dialog, id) -> {
+                   String tagName = editTextTagName.getText()
+                                                   .toString()
+                                                   .trim();
+                   if (!TextUtils.isEmpty(tagName)) {
+                       saveTagToDatabase(tagName);
+                   } else {
+                       Toast.makeText(requireContext(), getString(R.string.shop_name_empty), Toast.LENGTH_SHORT)
+                            .show();
+                   }
+               })
+               .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.dismiss());
+
+        builder.create()
+               .show();
+    }
+
+    private void saveTagToDatabase(final String tagName) {
+        new Thread(() -> {
+            final ShopTag newTag = new ShopTag(tagName);
+            database.shopTagDao()
+                    .insertShopTag(newTag);
+            requireActivity().runOnUiThread(() -> {
+                addChipToGroup(tagName);
+                Toast.makeText(requireContext(), getString(R.string.enter_shop), Toast.LENGTH_SHORT)
+                     .show();
+            });
+        }).start();
     }
 
     @Override

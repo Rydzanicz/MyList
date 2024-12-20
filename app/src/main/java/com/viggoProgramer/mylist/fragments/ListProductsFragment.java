@@ -74,7 +74,6 @@ public class ListProductsFragment extends Fragment {
             List<ShopTag> tags = database.shopTagDao().getAllShopTags();
             requireActivity().runOnUiThread(() -> {
                 if (chipGroupShopTags == null) {
-                    Toast.makeText(requireContext(), "ChipGroup not initialized", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 chipGroupShopTags.removeAllViews();

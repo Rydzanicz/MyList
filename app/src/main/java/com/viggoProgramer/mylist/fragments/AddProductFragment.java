@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -92,6 +93,7 @@ public class AddProductFragment extends Fragment {
                      .show();
             }
         });
+        selectedTags            = new ArrayList<>();
     }
 
     @Override
@@ -271,13 +273,37 @@ public class AddProductFragment extends Fragment {
             requireActivity().runOnUiThread(() -> {
                 chipGroupShopTags.removeAllViews();
                 for (ShopTag tag : shopTags) {
-                    addChipToGroup(tag.getTagName());
+                    loadAddChipToGroup(tag.getTagName());
                 }
             });
         }).start();
     }
 
     private void addChipToGroup(final String tagName) {
+        final Chip chip = new Chip(requireContext());
+        chip.setText(tagName);
+        chip.setCheckable(true);
+
+        if (selectedTags == null) {
+            selectedTags = new ArrayList<>();
+        }
+        chip.setChecked(true);
+        selectedTags.add(tagName);
+
+        chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                if (!selectedTags.contains(tagName)) {
+                    selectedTags.add(tagName);
+                }
+            } else {
+                selectedTags.remove(tagName);
+            }
+        });
+
+        chipGroupShopTags.addView(chip);
+    }
+
+    private void loadAddChipToGroup(final String tagName) {
         final Chip chip = new Chip(requireContext());
         chip.setText(tagName);
         chip.setCheckable(true);
@@ -304,22 +330,26 @@ public class AddProductFragment extends Fragment {
         final View dialogView = inflater.inflate(R.layout.dialog_add_tag, null);
         final EditText editTextTagName = dialogView.findViewById(R.id.editTextTagName);
 
-        builder.setView(dialogView)
-               .setPositiveButton(getString(R.string.save), (dialog, id) -> {
-                   String tagName = editTextTagName.getText()
-                                                   .toString()
-                                                   .trim();
-                   if (!TextUtils.isEmpty(tagName)) {
-                       saveTagToDatabase(tagName);
-                   } else {
-                       Toast.makeText(requireContext(), getString(R.string.shop_name_empty), Toast.LENGTH_SHORT)
-                            .show();
-                   }
-               })
-               .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.dismiss());
+        builder.setView(dialogView);
 
-        builder.create()
-               .show();
+        final AlertDialog dialog = builder.create();
+
+        final Button buttonSave = dialogView.findViewById(R.id.buttonSaveTags);
+        buttonSave.setOnClickListener(v -> {
+            String tagName = editTextTagName.getText().toString().trim();
+            if (!TextUtils.isEmpty(tagName)) {
+
+                saveTagToDatabase(tagName);
+                dialog.dismiss();
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.shop_name_empty), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void saveTagToDatabase(final String tagName) {

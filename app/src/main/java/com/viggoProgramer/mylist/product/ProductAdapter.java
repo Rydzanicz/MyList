@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
 import com.viggoProgramer.mylist.R;
 
 import java.util.ArrayList;
@@ -45,10 +46,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         holder.textName.setText(product.getName());
         holder.textCompany.setText(context.getString(R.string.company) + product.getCompany());
         holder.textPrice.setText(context.getString(R.string.price) + String.format("%.2f", product.getPrice()));
-        holder.textShop.setText(context.getString(R.string.shop) + product.getShop());
+        holder.textShop.setText(context.getString(R.string.shop));
         holder.textCategory.setText(context.getString(R.string.category) + product.getCategory());
         holder.textNotes.setText(context.getString(R.string.notes) + product.getNotes());
         holder.ratingBar.setRating(product.getRating());
+
+        holder.chipGroupShopTags.removeAllViews();
+
+        for (String tag : product.getShop()) {
+            if (!tag.isEmpty()) {
+                final Chip chip = new Chip(holder.itemView.getContext());
+                chip.setText(tag);
+
+                chip.setTextColor(holder.itemView.getContext()
+                                                 .getResources()
+                                                 .getColorStateList(R.color.black, null));
+                chip.setCheckable(true);
+                chip.setChecked(true);
+
+                chip.setClickable(false);
+                chip.setFocusable(false);
+
+                chip.setChipStartPadding(1f);
+                chip.setChipEndPadding(1f);
+
+                holder.chipGroupShopTags.addView(chip);
+            }
+        }
 
         if (product.getPhotoPath() != null) {
             Glide.with(holder.itemView.getContext())

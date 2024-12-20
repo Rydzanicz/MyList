@@ -58,10 +58,10 @@
             android:id="@+id/chipGroupShopTags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="1dp"
             app:singleSelection="false"
-            app:chipSpacingHorizontal="8dp"
-            app:chipSpacingVertical="8dp">
+            app:chipSpacingHorizontal="1dp"
+            app:chipSpacingVertical="1dp">
         </com.google.android.material.chip.ChipGroup>
 
         <TextView
